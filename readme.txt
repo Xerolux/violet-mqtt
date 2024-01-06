@@ -3,7 +3,7 @@ violet-mqtt all in one topic
 violet-mqtt-topic all in an seperate topic
 
 
-Installa:
+Install:
 please edit the following line in the *.py and replace with you data
 
     api_url = "https://your.api.endpoint/data"  # Replace with your API endpoint
