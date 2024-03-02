@@ -8,15 +8,11 @@ def get_json_from_api(api_url, username, password):
         # Make a GET request to the API with authentication
         response = requests.get(api_url, auth=(username, password))
 
-        # Check if the request was successful (status code 200)
         if response.status_code == 200:
-            # Parse the JSON data from the response
-            json_data = response.json()
-            return json_data
-        else:
-            # Print an error message if the request was not successful
-            print(f"Error: {response.status_code}")
-            return None
+            return response.json()
+        # Print an error message if the request was not successful
+        print(f"Error: {response.status_code}")
+        return None
 
     except requests.exceptions.RequestException as e:
         # Print an error message if an exception occurs during the request
@@ -40,10 +36,9 @@ if __name__ == "__main__":
 
     try:
         while True:
-            # Read JSON data from API
-            json_data = get_json_from_api(api_url, mqtt_username, mqtt_password)
-
-            if json_data:
+            if json_data := get_json_from_api(
+                api_url, mqtt_username, mqtt_password
+            ):
                 # Publish each line of JSON data to a separate MQTT topic
                 publish_to_mqtt(mqtt_broker_address, mqtt_port, base_mqtt_topic, json_data, mqtt_username, mqtt_password)
                 print("Data published to MQTT successfully.")
